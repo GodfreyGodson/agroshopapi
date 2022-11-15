@@ -1,5 +1,5 @@
 const MONGO_DB_CONFIG = {
-    DB:"mongodb://root:Dirm2020@127.0.0.1:27017/?authSource=admin",
+    DB:"mongodb://127.0.0.1:27017",
     PAGE_SIZE: 10
 };
 
