@@ -19,7 +19,11 @@ mongoose
       console.log("Database can't be connected: " + error);
     }
   );
-
+         app.get('/',(req,res)=>{
+                   
+                        res.send('api is up');
+                   
+                  });
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
