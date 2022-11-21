@@ -66,7 +66,7 @@ async function getProducts(params, callback) {
     .populate("category", "categoryName categoryImage")
     .populate("relatedProducts", "relatedProduct")
     .limit(perPage)
-    .skip(perPage * page)
+    .skip(perPage * page || 0)
     .then((response)=> {
         var res = response.map(r=>{
 
