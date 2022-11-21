@@ -38,7 +38,7 @@ async function getSliders(params, callback){
     slider
     .find(condition, "sliderName sliderImage")
     .limit(perPage)
-    .skip(perPage * page)
+    .skip(perPage * page || 0)
     .then((response)=>{
         return callback(null, response);
 
