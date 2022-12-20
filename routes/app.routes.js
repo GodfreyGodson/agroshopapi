@@ -3,7 +3,7 @@ const productController = require("../controllers/products.controller");
 const sliderController = require("../controllers/sliders.controller");
 const relatedProductController = require("../controllers/related-product.controller");
 const {authenticateToken} = require("../middleware/auth");
-const orderController = require("../controllers/order.controller");  
+const orderController = require("../controllers/order.controller"); 
 const cartController = require("../controllers/cart.controller");
 const userController = require("../controllers/users.controller");
 const express = require("express");
@@ -41,9 +41,10 @@ router.delete("/cart", [authenticateToken], cartController.delete);
 //router.delete("/cart",  cartController.delete);
 
 
-router.post("/order", [authenticateToken], orderController.create);
-router.get("/order", [authenticateToken], orderController.findAll);
-router.put("/order", [authenticateToken], orderController.update);
+router.post("/order", [authenticateToken], orderController.order_create);
+router.get("/order", [authenticateToken], orderController.get_orders);
+router.get("/order/find/:userId", [authenticateToken], orderController.find_order);
+router.get("/order/:id", [authenticateToken], orderController.delete_order);
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
