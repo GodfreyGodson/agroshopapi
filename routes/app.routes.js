@@ -19,6 +19,7 @@ router.delete("/category/:id", [authenticateToken], categoryController.delete);
 
 router.post("/slider", sliderController.create);
 router.get("/slider", sliderController.findAll);
+router.get("/sliders", [authenticateToken], sliderController.findslider);
 router.get("/slider/:id", sliderController.findOne);
 router.put("/slider/:id", sliderController.update);
 router.delete("/slider/:id", sliderController.delete);
