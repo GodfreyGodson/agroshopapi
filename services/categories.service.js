@@ -35,7 +35,33 @@ async function getCategories(params, callback){
     category
     .find(condition, "categoryName categoryImage")
     .limit(perPage)
-    .skip(perPage * page || 0)
+    .skip(perPage * page  || 0)
+    .then((response)=>{
+        return callback(null, response);
+
+    })
+    .catch((error)=>{
+        return callback (error);
+    });
+}
+
+
+async function getCategory(params, callback){
+    const categoryName = params.categoryName;
+    var condition = categoryName
+    ? {
+        categoryName: { $regex: new RegExp(categoryName), $options: "i"},
+
+    }
+    : {};
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.pageSize;
+    let page = (Math.abs(params.page)|| 1)-1;
+    
+    category
+    .find(condition, "categoryName categoryDescription categoryImage")
+    .limit(perPage)
+    .skip(perPage * page  || 0)
     .then((response)=>{
         return callback(null, response);
 
@@ -96,6 +122,7 @@ async function deleteCategory(params, callback){
 module.exports = {
     createCategory,
     getCategories,
+    getCategory,
     getCategoryById,
     updateCategoryById,
     deleteCategory
