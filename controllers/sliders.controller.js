@@ -61,6 +61,32 @@ exports.findAll = (req, res, next)=>{
 };
 
 
+
+exports.findslider = (req, res, next)=>{
+
+  
+    var model = {
+
+        sliderName: req.query.sliderName,
+        pageSize:req.query.pageSize,
+        page: req.query.page,
+    };
+    sliderService.getSlider(model, (error, results)=>{
+        if(error){
+            return next(error);
+        }
+        else{
+            return res.status(200).send({
+                message:"Success",
+                data: results,
+            });
+        }
+    })
+
+
+};
+
+
 exports.findOne = (req, res, next)=>{
 
   
