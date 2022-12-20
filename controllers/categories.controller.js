@@ -65,6 +65,35 @@ exports.findAll = (req, res, next)=>{
 
 };
 
+
+
+exports.findcategory = (req, res, next)=>{
+
+  
+    var model = {
+
+        categoryName: req.query.categoryName,
+        pageSize:req.query.pageSize,
+        page: req.query.page,
+
+
+    };
+
+    categoriesService.getCategory(model, (error, results)=>{
+        if(error){
+            return next(error);
+        }
+        else{
+            return res.status(200).send({
+                message:"Success",
+                data: results,
+            });
+        }
+    })
+
+
+};
+
 exports.findOne = (req, res, next)=>{
 
   
