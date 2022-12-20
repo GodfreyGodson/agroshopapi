@@ -26,6 +26,7 @@ router.delete("/slider/:id", sliderController.delete);
 
 router.post("/product", productController.create);
 router.get("/product", productController.findAll);
+router.get("/products", [authenticateToken], productController.getAll);
 router.get("/product/:id", productController.findOne);
 router.put("/product/:id", productController.update);
 router.delete("/product/:id", productController.delete);
