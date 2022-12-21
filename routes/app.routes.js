@@ -49,6 +49,8 @@ router.get("/order", [authenticateToken], orderController.get_orders);
 router.get("/order/find/:userId", [authenticateToken], orderController.find_order);
 router.get("/order/:id", [authenticateToken], orderController.delete_order);
 
+router.get("/users",  [authenticateToken], userController.findAll);
+router.get("/users/:id",  [authenticateToken], userController.get_byId);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 
