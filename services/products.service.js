@@ -292,7 +292,12 @@ async function updateProduct(params, callback) {
 
 }
 
+/*
 async function deleteProduct(params, callback) {
+
+    if (typeof callback !== 'function') {
+        throw new Error('callback must be a function');
+      }
     const productId = params.productId;
          
   
@@ -310,7 +315,24 @@ async function deleteProduct(params, callback) {
         return callback(error);
     });
 
+}*/
+
+async function deleteProduct(params, callback){
+    const productId = params.productId;
+   
+    
+    product
+    .findByIdAndDelete(productId)
+    .then((response)=>{
+        if(!response) callback("Not Found Product with Id" +productId );
+       else callback(null, response);
+
+    })
+    .catch((error)=>{
+        return callback (error);
+    });
 }
+
 
 
 module.exports = {
