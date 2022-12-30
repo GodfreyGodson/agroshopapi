@@ -6,6 +6,7 @@ const {authenticateToken} = require("../middleware/auth");
 const orderController = require("../controllers/order.controller"); 
 const cartController = require("../controllers/cart.controller");
 const userController = require("../controllers/users.controller");
+const useController = require("../controllers/user.controllers");
 const express = require("express");
 
 const router = express.Router();
@@ -49,8 +50,8 @@ router.get("/order", [authenticateToken], orderController.get_orders);
 router.get("/order/find/:userId", [authenticateToken], orderController.find_order);
 router.get("/order/:id", [authenticateToken], orderController.delete_order);
 
-router.get("/users",  [authenticateToken], userController.findAll);
-router.get("/users/:id",  [authenticateToken], userController.get_byId);
+router.get("/users",  [authenticateToken], useController.get_users);
+router.get("/users/:id",  [authenticateToken], useController.get_byId);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 
