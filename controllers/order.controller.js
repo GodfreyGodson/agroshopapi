@@ -1,11 +1,13 @@
 const Order = require("../models/order.model");
 const User = require('../models/user.model');
+const {user} = require('../models/user.model');
+
 const {cart} = require("../models/cart.model");
  //const {order} = require("../models/order.model");
 const mongoose = require("mongoose");
-const {product} = require("../models/product.model");
-var async = require("async");
 
+var async = require("async");
+const {product} = require("../models/product.model");
 
 
 const order_create = async (req, res) => {
@@ -110,14 +112,31 @@ const find_order = async(req, res)=>{
     }
 }
 
-const get_orders = async(req, res)=>{
-    try{
-        const orders = await Order.find();
-        res.status(200).json(orders);
-    }catch(err){
-        res.status(500).json(err);
-    }
-}
+const get_orders = async (req, res) => {
+  try {
+    const orders = await Order.find().populate('userId');
+    const order_list = orders.map(async(order) => {
+      const userObj = await user.findById(order.userId)
+      
+     const products = order.products.map(async(prod)=>{
+        return await product.findById(prod.product)
+      })
+      const productList = await Promise.all(products)
+      console.log(productList)
+      return {
+        ...order._doc,
+        user: userObj._doc,
+        products:productList
+       
+      };
+    });
+    const resolvedOrders = await Promise.all(order_list);
+
+    res.status(200).json(resolvedOrders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 const delete_order = async(req, res)=>{
     try{
