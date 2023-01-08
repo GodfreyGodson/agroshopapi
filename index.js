@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const { MONGO_DB_CONFIG } = require("./config/app.config");
 const errors = require("./middleware/errors.js");
 const swaggerUi = require("swagger-ui-express"), swaggerDocument = require("./swagger.json");
+var cors = require('cors')
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -24,6 +25,7 @@ mongoose
                         res.send('api is up');
                    
                   });
+app.use(cors())
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
